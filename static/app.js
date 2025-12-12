@@ -1,61 +1,47 @@
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-// Tabs logic
-const tabs = document.querySelectorAll(".tab");
-const screens = document.querySelectorAll(".screen");
-
-tabs.forEach(tab => {
-  tab.onclick = () => {
-    tabs.forEach(t => t.classList.remove("active"));
-    screens.forEach(s => s.classList.remove("active"));
-
-    tab.classList.add("active");
-    document.getElementById(tab.dataset.tab).classList.add("active");
-  };
-});
-
-// Fake gifts (витрина)
+/* === СПИСОК ПОДАРКОВ === */
 const gifts = [
   {
     name: "Lush Bouquet",
-    price: 250,
-    img: "https://i.imgur.com/8Km9tLL.jpg"
+    image: "static/img/lush.png",
+    link: "https://t.me/nft/LushBouquet-13840"
   },
   {
-    name: "Golden Rose",
-    price: 500,
-    img: "https://i.imgur.com/Qd6wE1H.jpg"
+    name: "Crystal Ball",
+    image: "static/img/crystal.png",
+    link: "https://t.me/nft/CrystalBall-185"
   },
   {
-    name: "Winter Box",
-    price: 120,
-    img: "https://i.imgur.com/1Xq9BiK.jpg"
-  },
-  {
-    name: "Crystal Heart",
-    price: 800,
-    img: "https://i.imgur.com/5tj6S7Ol.jpg"
+    name: "Sleigh Bell",
+    image: "static/img/bell.png",
+    link: "https://t.me/nft/SleighBell-1239"
   }
 ];
 
-function render(sectionId, title) {
-  const el = document.getElementById(sectionId);
-  el.innerHTML = "";
-
-  gifts.forEach(g => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <img src="${g.img}">
-      <div class="name">${g.name}</div>
-      <div class="price">⭐ ${g.price}</div>
-    `;
-    el.appendChild(card);
-  });
+/* === РАНДОМ ЦЕНЫ === */
+function randomPrice(min = 100, max = 1500) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// Initial render
-render("market");
-render("inventory");
-render("cart");
+/* === РЕНДЕР МАРКЕТА === */
+const market = document.getElementById("market");
+
+gifts.forEach(gift => {
+  const price = randomPrice();
+
+  const card = document.createElement("div");
+  card.className = "card";
+
+  card.innerHTML = `
+    <img src="${gift.image}" />
+    <div class="title">${gift.name}</div>
+    <div class="price">⭐ ${price}</div>
+    <a class="btn" href="${gift.link}" target="_blank">
+      Посмотреть
+    </a>
+  `;
+
+  market.appendChild(card);
+});
