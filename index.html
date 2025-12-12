@@ -2,24 +2,45 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WinterMarket</title>
-  <link rel="stylesheet" href="/static/style.css">
+
+  <!-- Telegram WebApp -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="static/style.css?v=1" />
 </head>
 <body>
-  <div class="wrap">
-    <h1>❄️ WinterMarket</h1>
 
-    <div class="card">
-      <div class="big">🎁 Подарок добавлен!</div>
-      <div class="small">Теперь он в вашем инвентаре.</div>
-      <button id="goInv">Перейти в инвентарь</button>
-    </div>
+  <div class="app">
+    <!-- TOP BAR -->
+    <header class="topbar">
+      ❄️ WinterMarket
+    </header>
 
-    <div id="inv" class="inv hidden"></div>
+    <!-- TABS -->
+    <nav class="tabs">
+      <button class="tab active" data-tab="market">🛒 Маркет</button>
+      <button class="tab" data-tab="inventory">🎒 Инвентарь</button>
+      <button class="tab" data-tab="cart">🧺 Корзина</button>
+    </nav>
+
+    <!-- CONTENT -->
+    <main class="content">
+
+      <!-- MARKET -->
+      <section id="market" class="screen active"></section>
+
+      <!-- INVENTORY -->
+      <section id="inventory" class="screen"></section>
+
+      <!-- CART -->
+      <section id="cart" class="screen"></section>
+
+    </main>
   </div>
 
-  <script src="/static/app.js"></script>
+  <script src="static/app.js?v=1"></script>
 </body>
 </html>
