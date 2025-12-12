@@ -1,32 +1,61 @@
-// Telegram WebApp
 const tg = window.Telegram.WebApp;
 tg.expand();
 
-// элементы
-const goBtn = document.getElementById("goInv");
-const inv = document.getElementById("inv");
+// Tabs logic
+const tabs = document.querySelectorAll(".tab");
+const screens = document.querySelectorAll(".screen");
 
-// тестовый инвентарь (пока заглушка)
+tabs.forEach(tab => {
+  tab.onclick = () => {
+    tabs.forEach(t => t.classList.remove("active"));
+    screens.forEach(s => s.classList.remove("active"));
+
+    tab.classList.add("active");
+    document.getElementById(tab.dataset.tab).classList.add("active");
+  };
+});
+
+// Fake gifts (витрина)
 const gifts = [
   {
-    id: "13840",
     name: "Lush Bouquet",
-    img: "https://t.me/nft/LushBouquet-13840"
+    price: 250,
+    img: "https://i.imgur.com/8Km9tLL.jpg"
+  },
+  {
+    name: "Golden Rose",
+    price: 500,
+    img: "https://i.imgur.com/Qd6wE1H.jpg"
+  },
+  {
+    name: "Winter Box",
+    price: 120,
+    img: "https://i.imgur.com/1Xq9BiK.jpg"
+  },
+  {
+    name: "Crystal Heart",
+    price: 800,
+    img: "https://i.imgur.com/5tj6S7Ol.jpg"
   }
 ];
 
-// кнопка «Перейти в инвентарь»
-goBtn.addEventListener("click", () => {
-  inv.classList.remove("hidden");
-  inv.innerHTML = "";
+function render(sectionId, title) {
+  const el = document.getElementById(sectionId);
+  el.innerHTML = "";
 
   gifts.forEach(g => {
-    const el = document.createElement("div");
-    el.className = "card";
-    el.innerHTML = `
-      <div class="big">🎁 ${g.name}</div>
-      <a href="${g.img}" target="_blank">Показать подарок</a>
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <img src="${g.img}">
+      <div class="name">${g.name}</div>
+      <div class="price">⭐ ${g.price}</div>
     `;
-    inv.appendChild(el);
+    el.appendChild(card);
   });
-});
+}
+
+// Initial render
+render("market");
+render("inventory");
+render("cart");
